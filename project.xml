@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+
+	<meta title="openfl-scale9" package="io.github.mrchnk.openfl-scale9" version="1.0.0" company="mrchnk" />
+	<app main="Main" path="bin" file="Main" />
+
+	<window width="200" height="100" fps="30" />
+
+	<source path="src" />
+
+	<haxelib name="openfl" />
+
+	<library path="assets/scale9.swf" preload="true" />
+
+</project>
