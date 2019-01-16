@@ -1,5 +1,3 @@
-
-
 import openfl.display.Sprite;
 import openfl.display.Stage;
 import openfl.Assets;
@@ -10,11 +8,10 @@ import openfl.display.DisplayObject;
 class Main extends Sprite {
 
 
-  public function new () {
+  public function new() {
+    super();
 
-    super ();
-
-    var sprite = new Scale9Wrapper(Assets.getMovieClip ("scale9:Scale9Sprite"));
+    var sprite = new Scale9Wrapper(Assets.getMovieClip("scale9:Scale9Sprite"));
     sprite.scale9Grid = new Rectangle(10, 10, 20, 20);
     sprite.x = 10;
     sprite.y = 10;
@@ -22,7 +19,6 @@ class Main extends Sprite {
     sprite.height = 80;
 
     addChild(sprite);
-
   }
 
 }
@@ -30,28 +26,27 @@ class Main extends Sprite {
 @:access(openfl.display.DisplayObject)
 class Scale9Wrapper extends DisplayObject {
 
-  private var _actualWidth: Float;
-  private var _actualHeight: Float;
-
-  private var child: DisplayObject;
+  private var actualWidth:Float;
+  private var actualHeight:Float;
+  private var child:DisplayObject;
 
   public function new(child:DisplayObject) {
     super();
-    this.child = child;
     child.__renderParent = this;
-    this._actualWidth = child.width;
-    this._actualHeight = child.height;
+    this.child = child;
+    this.actualWidth = child.width;
+    this.actualHeight = child.height;
   }
 
-  @:noCompletion private override function __setStageReference (stage:Stage):Void {
-		super.__setStageReference (stage);
-    child.__setStageReference (stage);
+  @:noCompletion private override function __setStageReference(stage:Stage):Void {
+		super.__setStageReference(stage);
+    child.__setStageReference(stage);
   }
 
-  override public function get_width(): Float { return _actualWidth; }
-  override public function set_width(width: Float): Float { _actualWidth = width; return width; }
-  override public function get_height(): Float { return _actualHeight; }
-  override public function set_height(height: Float): Float { _actualHeight = height; return height; }
+  override public function get_width():Float { return actualWidth; }
+  override public function set_width(width:Float):Float { actualWidth = width; return width; }
+  override public function get_height():Float { return actualHeight; }
+  override public function set_height(height:Float):Float { actualHeight = height; return height; }
 
   private override function __renderCanvas(renderer:CanvasRenderer) {
     if (scale9Grid == null) {
@@ -69,11 +64,11 @@ class Scale9Wrapper extends DisplayObject {
     var paddingH = paddingLeft + paddingRight;
     var paddingV = paddingTop + paddingBottom;
 
-    var scaleH = (_actualWidth - paddingH) / (bounds.width - paddingH);
-    var scaleV = (_actualHeight - paddingV) / (bounds.height - paddingV);
+    var scaleH = (actualWidth - paddingH) / (bounds.width - paddingH);
+    var scaleV = (actualHeight - paddingV) / (bounds.height - paddingV);
 
-    var xs = [0, paddingLeft, _actualWidth - paddingRight];
-    var ys = [0, paddingTop, _actualHeight - paddingBottom];
+    var xs = [0, paddingLeft, actualWidth - paddingRight];
+    var ys = [0, paddingTop, actualHeight - paddingBottom];
     var scaleXs = [1, scaleH, 1];
     var scaleYs = [1, scaleV, 1];
 
@@ -81,7 +76,6 @@ class Scale9Wrapper extends DisplayObject {
     var scrollYs = [0, scale9Grid.y, scale9Grid.bottom];
     var scrollWidths = [scale9Grid.x, scale9Grid.width, bounds.width - scale9Grid.width];
     var scrollHeights = [scale9Grid.y, scale9Grid.height, bounds.height - scale9Grid.height];
-
 
     for (ix in 0...3) {
       for (iy in 0...3) {
